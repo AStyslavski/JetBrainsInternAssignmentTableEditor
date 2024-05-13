@@ -20,9 +20,19 @@ public class Parser {
         this.input = input;
         this.index = 0;
         this.output = parse(MAX_DEPTH);
+        if (index < input.size()) {
+            throw new ParserException("Leftover " + input.subList(index, input.size()));
+        }
+    }
+
+    public AbstractSyntax getOutput() {
+        return this.output;
     }
 
     private AbstractSyntax parse(int depthLeft) {
+        if(input == null || input.isEmpty()) {
+            return new UndefinedExt();
+        }
         checkDepth(depthLeft);
         checkIndexNotOutOfRange();
         Token token0 = input.get(index++);
@@ -82,11 +92,6 @@ public class Parser {
         }
         return returnList;
     }
-
-    public AbstractSyntax getOutput() {
-        return this.output;
-    }
-
 
     private static void checkDepth(int depth_left) {
         if (depth_left < 0) {

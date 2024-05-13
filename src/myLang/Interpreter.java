@@ -3,6 +3,7 @@ package myLang;
 import myLang.abstractSyntax.*;
 import myLang.exception.InterpreterException;
 import myLang.value.IntegerValue;
+import myLang.value.UndefinedValue;
 import myLang.value.Value;
 
 import java.util.List;
@@ -10,8 +11,9 @@ import java.util.List;
 public class Interpreter {
     public static Value interpret(AbstractSyntax input, Value[][] cells) {
         return switch (input) {
+            case UndefinedExt ignored -> new UndefinedValue();
             case NumExt numExt -> new IntegerValue(numExt.getValue());
-            case CellRefExt cellRefExt -> cells[cellRefExt.getColumn()][cellRefExt.getRow()]; // todo: implement cell out of range exception!!!!
+            case CellRefExt cellRefExt -> refCell(cells, cellRefExt);
             case UnOpExt unOpExt -> {
                 Value operand = interpret(unOpExt.getOperand(), cells);
                 switch (unOpExt.getOperator()) {
@@ -76,6 +78,22 @@ public class Interpreter {
             }
             default -> throw new InterpreterException("Unrecognised abstract syntax");
         };
+    }
+
+    private static Value refCell(Value[][] cells, CellRefExt cellRefExt) {
+        int row = cellRefExt.getRow();
+        int column = cellRefExt.getRow();
+        if (row >= cells.length) {
+            throw new InterpreterException("Row " + row + " is out of bounds (max row: " + (cells.length - 1) + ")");
+        }
+        if (column >= cells[row].length) {
+            throw new InterpreterException("Column " + column + " is out of bounds (max column: " + (cells[row].length - 1) + ")");
+        }
+        Value returnValue = cells[column][row];
+        if (returnValue instanceof UndefinedValue) {
+            throw new InterpreterException("Referenced an undefined value");
+        }
+        return returnValue;
     }
 
     private static void assertListLength(int expectedLength, List<Value> values, String functionName) {

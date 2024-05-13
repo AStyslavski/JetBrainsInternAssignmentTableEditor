@@ -16,7 +16,7 @@ public class Tokenizer {
         return split(input).stream().map(Token::fromString).toList();
     }
 
-    public static List<String> split(String input) {
+    static List<String> split(String input) {
         StringBuilder patternBuilder = new StringBuilder();
         for (String ch : specialCharacters) {
             patternBuilder.append(Pattern.quote(ch));

@@ -15,4 +15,9 @@ public class IntegerValue extends Value {
     public String toString() {
         return "IntegerValue(" + value + ")";
     }
+
+    @Override
+    public String showVal() {
+        return Integer.toString(value);
+    }
 }

@@ -40,12 +40,12 @@ public class CellUtil {
      */
     public static int[] parseCell(String input) {
         input = input.toUpperCase(Locale.ROOT);
-        if(!isCellReference(input)) {
+        if (!isCellReference(input)) {
             throw new IllegalArgumentException("Invalid cell reference format");
         }
 
         Matcher matcher = Pattern.compile(CELL_REFERENCE_REGEX).matcher(input);
-        if(!matcher.find()) {
+        if (!matcher.find()) {
             throw new RuntimeException("Undefined pattern matcher error when parsing cell");
         }
 
@@ -73,6 +73,23 @@ public class CellUtil {
     public static boolean isCellReference(String input) {
         input = input.toUpperCase(Locale.ROOT);
         return input.matches(CELL_REFERENCE_REGEX);
+    }
+
+    /**
+     * DOCS TODO
+     * @param column
+     * @return
+     */
+    public static String intToColumnHeader(int column) {
+        if (column < 0) {
+            throw new IllegalArgumentException("Column number cannot be negative");
+        }
+        final StringBuilder sb = new StringBuilder();
+        do {
+            sb.append((char) ('A' + column % ALPHABET_SIZE));
+            column /= ALPHABET_SIZE;
+        } while (column-- > 0);
+        return sb.reverse().toString();
     }
 
 }
