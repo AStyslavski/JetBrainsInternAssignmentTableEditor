@@ -1,6 +1,7 @@
 package myLang;
 
 import myLang.abstractSyntax.*;
+import myLang.exception.ParserException;
 import myLang.token.*;
 
 import java.util.ArrayList;
@@ -36,25 +37,25 @@ public class Parser {
                 AbstractSyntax returnValue = parse(depthLeft - 1);
                 checkIndexNotOutOfRange();
                 if (!(input.get(index++).isType(TokenType.CLOSE_PAREN))) {
-                    throw new RuntimeException("Missing closing bracket/unexpected token " + token0 + " at index " + (index - 1));
+                    throw new ParserException("Missing closing bracket/unexpected token " + token0, (index - 1));
                 }
                 yield returnValue;
             }
             case IdT idT -> {
                 checkIndexNotOutOfRange();
                 if (!input.get(index++).isType(TokenType.OPEN_PAREN)) {
-                    throw new RuntimeException("Function call not immediately followed by open paren at index " + (index - 1));
+                    throw new ParserException("Function call not immediately followed by open paren", (index - 1));
                 }
                 List<AbstractSyntax> body = parseList(depthLeft - 1);
                 checkIndexNotOutOfRange();
                 if (!(input.get(index++).isType(TokenType.CLOSE_PAREN))) {
-                    throw new RuntimeException("Function call param param list not closed with paren (or missing comma) at index " + (index - 1));
+                    throw new ParserException("Function call param param list not closed with paren (or missing comma)", (index - 1));
                 }
                 yield new FunAppExt(idT.getValue(), body);
             }
             case NumT numT -> new NumExt(numT.getValue());
             case CellRefT cellRefT -> new CellRefExt(cellRefT.getColumn(), cellRefT.getRow());
-            default -> throw new RuntimeException("Unexpected token " + token0 + " at index " + (index - 1));
+            default -> throw new ParserException("Unexpected token " + token0, (index - 1));
         };
 
         if (index < input.size() && input.get(index).isBinOp()) {
@@ -89,13 +90,13 @@ public class Parser {
 
     private static void checkDepth(int depth_left) {
         if (depth_left < 0) {
-            throw new RuntimeException("Parser reached maximum depth");
+            throw new ParserException("Parser reached maximum depth");
         }
     }
 
     private void checkIndexNotOutOfRange() {
         if (index >= input.size()) {
-            throw new RuntimeException("Parser reached unexpected end of expression");
+            throw new ParserException("Parser reached unexpected end of expression");
         }
     }
 }

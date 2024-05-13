@@ -11,6 +11,14 @@ public class UnOpExt extends AbstractSyntax {
         this.operand = operand;
     }
 
+    public UnOpType getOperator() {
+        return operator;
+    }
+
+    public AbstractSyntax getOperand() {
+        return operand;
+    }
+
     @Override
     public String toString() {
         return "UnOpExt(" + operator + ", " + operand + ")";

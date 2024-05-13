@@ -1,5 +1,6 @@
 package myLang;
 
+import myLang.exception.TokenizerException;
 import myLang.token.Token;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class Tokenizer {
         }
         String tokenPattern = "([a-zA-Z0-9]+|[" + patternBuilder + "])";
         if (!Pattern.compile("((" + tokenPattern + ")|\s)*").matcher(input).matches())
-            throw new RuntimeException("todo");
+            throw new TokenizerException(" Invalid input");
 
         ArrayList<String> returnValue = new ArrayList<>();
         Matcher matcher = Pattern.compile(tokenPattern).matcher(input);
