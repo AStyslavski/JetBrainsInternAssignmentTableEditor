@@ -3,6 +3,7 @@ import myLang.Parser;
 import myLang.Tokenizer;
 import myLang.value.UndefinedValue;
 import myLang.value.Value;
+import util.CellUtil;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
@@ -69,7 +70,7 @@ public class Main {
         for (int i = 0; i < columns.length; i++) {
             columns[i] = intToColumnHeader(i);
         }
-        Value[][] cells = initEmpty(height, width);
+        Value[][] cells = CellUtil.initEmpty(height, width);
         String[][] data = new String[height][width];
         DefaultTableModel model = new DefaultTableModel(data, columns);
         TableModelListener listener = new TableModelListener() {
@@ -112,15 +113,5 @@ public class Main {
     private static Value interp(String in, Value[][] cells) {
         Parser p = new Parser(Tokenizer.tokenize(in));
         return Interpreter.interpret(p.getOutput(), cells);
-    }
-
-    private static Value[][] initEmpty(int columns, int rows) {
-        Value[][] retVal = new Value[columns][rows];
-        for (int i = 0; i < columns; i++) {
-            for (int j = 0; j < rows; j++) {
-                retVal[i][j] = new UndefinedValue();
-            }
-        }
-        return retVal;
     }
 }

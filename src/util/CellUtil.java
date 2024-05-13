@@ -1,5 +1,8 @@
 package util;
 
+import myLang.value.UndefinedValue;
+import myLang.value.Value;
+
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -90,6 +93,22 @@ public class CellUtil {
             column /= ALPHABET_SIZE;
         } while (column-- > 0);
         return sb.reverse().toString();
+    }
+
+    /**
+     * Docs todo
+     * @param columns
+     * @param rows
+     * @return
+     */
+    public static Value[][] initEmpty(int columns, int rows) {
+        Value[][] retVal = new Value[columns][rows];
+        for (int i = 0; i < columns; i++) {
+            for (int j = 0; j < rows; j++) {
+                retVal[i][j] = new UndefinedValue();
+            }
+        }
+        return retVal;
     }
 
 }
