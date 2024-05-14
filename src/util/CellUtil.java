@@ -79,9 +79,12 @@ public class CellUtil {
     }
 
     /**
-     * DOCS TODO
-     * @param column
-     * @return
+     * Converts a zero-based column index into a column reference (e.g., A, AB).
+     * (E.g. 0 -> A, 25 -> Z, 27 -> AB)
+     *
+     * @param column the zero-based column index.
+     * @return the column reference corresponding to the zero-based column index.
+     * @throws IllegalArgumentException if the input column index is negative.
      */
     public static String intToColumnHeader(int column) {
         if (column < 0) {
@@ -96,12 +99,20 @@ public class CellUtil {
     }
 
     /**
-     * Docs todo
-     * @param columns
-     * @param rows
-     * @return
+     * Returns a 2d array of Undefined value.
+     *
+     * @param columns number of columns (1st dimension) in the output array.
+     * @param rows number of rows (2nd dimension) in the output array.
+     * @return 2d array filled with UndefinedValue()
+     * @throws IllegalArgumentException if any parameter is not greater than 0
      */
     public static Value[][] initEmpty(int columns, int rows) {
+        if (columns <= 0) {
+            throw new IllegalArgumentException("Number of columns cannot be negative");
+        }
+        if (rows <= 0) {
+            throw new IllegalArgumentException("Number of rows cannot be negative");
+        }
         Value[][] retVal = new Value[columns][rows];
         for (int i = 0; i < columns; i++) {
             retVal[i] = new Value[rows];
