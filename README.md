@@ -19,7 +19,7 @@ BinOp.Minus     = [-]
 BinOp.Mult      = [*]
 
 INT             = [0-9]+
-CREF            = [a-zA-Z]{1, 2}
+CREF            = [[a-zA-Z]{1, 2}[INT]]
 ID              = //any srting not containing special characters/numbers, that is not a CREF 
 ```
 
