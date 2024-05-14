@@ -42,7 +42,7 @@ ID              = //any srting not containing special characters/numbers, that i
 
 
 ## Running the program
-
+This code was written with Java version 22.
 1. Navigate to the `src` directory.
 2. Compile Main: `javac Main.java`
 3. Run Main: `java Main`
