@@ -82,14 +82,14 @@ public class Interpreter {
 
     private static Value refCell(Value[][] cells, CellRefExt cellRefExt) {
         int row = cellRefExt.getRow();
-        int column = cellRefExt.getRow();
+        int column = cellRefExt.getColumn();
         if (row >= cells.length) {
             throw new InterpreterException("Row " + row + " is out of bounds (max row: " + (cells.length - 1) + ")");
         }
         if (column >= cells[row].length) {
             throw new InterpreterException("Column " + column + " is out of bounds (max column: " + (cells[row].length - 1) + ")");
         }
-        Value returnValue = cells[column][row];
+        Value returnValue = cells[row][column];
         if (returnValue instanceof UndefinedValue) {
             throw new InterpreterException("Referenced an undefined value");
         }

@@ -43,7 +43,7 @@ class ParserTest {
     }
 
     @Test
-    void testParseErrors() {
+    void testParserTrowsOnInvalidInput() {
         for (String input : List.of("engineersPi", "+1", ")", "1+2 is 4", "pow(1 2)", "abs(1, )")) {
             assertThrows(ParserException.class, () -> new Parser(Tokenizer.tokenize(input)));
         }

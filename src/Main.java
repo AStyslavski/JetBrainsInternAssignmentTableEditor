@@ -1,7 +1,6 @@
 import myLang.Interpreter;
 import myLang.Parser;
 import myLang.Tokenizer;
-import myLang.value.UndefinedValue;
 import myLang.value.Value;
 import util.CellUtil;
 
@@ -14,7 +13,6 @@ import java.awt.*;
 import static util.CellUtil.intToColumnHeader;
 
 public class Main {
-
     /**
      * Main program, see README.md for docs.
      */

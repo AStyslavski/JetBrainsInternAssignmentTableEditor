@@ -10,4 +10,10 @@ public class UndefinedValue extends Value {
     public String showVal() {
         return "";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof UndefinedValue;
+    }
+
 }

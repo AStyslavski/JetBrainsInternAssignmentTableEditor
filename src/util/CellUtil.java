@@ -104,6 +104,7 @@ public class CellUtil {
     public static Value[][] initEmpty(int columns, int rows) {
         Value[][] retVal = new Value[columns][rows];
         for (int i = 0; i < columns; i++) {
+            retVal[i] = new Value[rows];
             for (int j = 0; j < rows; j++) {
                 retVal[i][j] = new UndefinedValue();
             }

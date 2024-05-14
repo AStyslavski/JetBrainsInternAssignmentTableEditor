@@ -15,7 +15,8 @@ public class InterpreterChecker {
      * The program will prompt you to enter an input string, which will be tokenized,
      * parsed, and interpreted. The result will be printed out. You can type ':quit'
      * to exit the program.
-     * All cells from A1 to CV100 are initialized with the integer 1.
+     * All cells from A1 to CV100 are initialized with the integer values row-column
+     * (e.g. A1=0, Z1=-25, A10=9)
      */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -23,7 +24,7 @@ public class InterpreterChecker {
         Value[][] cells = new Value[100][100];
         for(int i = 0; i < 100; i++) {
             for(int j = 0; j < 100; j++) {
-                cells[i][j] = new IntegerValue(1);
+                cells[i][j] = new IntegerValue(i-j);
             }
         }
 
